@@ -18,7 +18,14 @@
 	<link rel="stylesheet" href="css/reveal.css">
 	<link rel="stylesheet" href="css/theme/space.css" id="theme">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<style type="text/css">
+		#cover-info {
+			margin-top: 3rem;
+		}
+		.reveal h4 {
+			padding: 1rem;
+		}
+	</style>
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="lib/css/monokai.css">
 
@@ -44,14 +51,16 @@
 
 		<!-- Engage Mr. Sulu -->
 		<div class="slides">
-			<section data-background="assets/sidetrack-sky.jpg">
-				<h1 class="groovy-title">Themes of the Future</h1>
-				<h6 class="groovy-subtitle"><a href="https://twitter.com/itsjusteileen">it's just eileen</a> | <a href="https://sidetrack.studio">Sidetrack Studio</a></p>
-				</section>
+			<section data-background="assets/sidetrack-sky.jpg" class="cover-section">
+				<div id="cover-info">
+					<h1 class="groovy-title">Themes of the Future</h1>
+					<h4>&nbsp;</h4>
+				</div>
+			</section>
 
-				<section>
-					<h1 class="groovy-bold">Hello :-)</h1>
-					<div class="bio">
+			<section>
+				<h1 class="groovy-bold">Hello :-)</h1>
+				<div class="bio">
 					it's just eileen</br> I’m a Design Engineer creating user experiences and interfaces for WordPress websites and products. With over seven years experience building WordPress solutions, as partner at Sidetrack.Studio and wpBlockShop.com specializing in engineering custom WordPress block solutions.
 				</div>
 			</section>
@@ -184,7 +193,7 @@
 				<pre><code class="hljs" data-trim data-line-numbers="1,2">
 					<div class="wp-block-image" >
 						<figure class="alignleft">
-							<img src="..." alt="" width="200px" />
+							<img src="" alt="" width="200px" />
 							<figcaption>Short image caption.</figcaption>
 						</figure>
 					</div>
@@ -882,8 +891,7 @@
 
 	<script src="js/reveal.js"></script>
 
-<script>
-
+	<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				controls: true,
@@ -903,10 +911,53 @@
 				{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
-
-			
-
 		</script>
+		<style type="text/css">
+			/* 1. Style header/footer <div> so they are positioned as desired. */
+			#header-left {
+				position: absolute;
+				top: 0%;
+				left: 0%;
+			}
+			#header-right {
+				position: absolute;
+				top: 0%;
+				right: 0%;
+			}
+			#footer-left {
+				position: absolute;
+				bottom: 0%;
+				left: 0%;
+			}
+			#footer-center {
+				position: fixed;
+				bottom: 1%;
+				left: 10%;
+				z-index: 3;
+			}
+		</style>
 
-	</body>
-	</html>
+		<!-- 2. Create hidden header/footer <div> -->
+		<div id="hidden" style="display:none;">
+			<div id="header">
+				<div id="footer-center">
+					<h6 class="groovy-subtitle"><a href="https://twitter.com/itsjusteileen">it's just eileen</a> | <a href="https://sidetrack.studio">Sidetrack Studio</a></h6>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		// 3. On Reveal.js ready event, copy header/footer <div> into each `.slide-background` <div>
+		// body > div.reveal.slide.center.has-vertical-slides.has-horizontal-slides.ready > div.slides > section.present
+		var header = $('#header').html();
+		if ( window.location.search.match( /print-pdf/gi ) ) {
+			Reveal.addEventListener( 'ready', function( event ) {
+				$('.cover-section').append(header);
+			});
+		}
+		else {
+			$('div.reveal section.cover-section').append(header);
+		}
+	</script>
+</body>
+</html>
