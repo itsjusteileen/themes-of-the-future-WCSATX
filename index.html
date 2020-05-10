@@ -52,7 +52,7 @@
 				<section>
 					<h1 class="groovy-bold">Hello :-)</h1>
 					<div class="bio">
-					it's just eileen</br> I’m a Design Engineer creating user experiences and interfaces for WordPress websites and products. With over seven years experience building WordPress solutions, as partner at Sidetrack.Studio and wpBlockShop.com specializing in engineering custom WordPress block solutions.
+					it's just eileen</br> I’m a Design Engineer creating user experiences and interfaces for WordPress websites and products as partner/founder at Sidetrack.Studio and wpBlockShop.com where we specialize in engineering custom WordPress block solutions.
 				</div>
 			</section>
 
@@ -440,62 +440,62 @@
 		<section>
 			<small>Block Templates</small>
 			<h2>JS</h2>
-					<pre>
-<code class="hljs" data-trim data-line-numbers="">
-	import { __ }  from '@wordpress/i18n';
-	import { registerBlockType } from '@wordpress/blocks';
-	import {
-		InnerBlocks,
-	} from '@wordpress/block-editor';
+				<pre>
+					<code class="hljs" data-trim data-line-numbers="">
+						import { __ }  from '@wordpress/i18n';
+						import { registerBlockType } from '@wordpress/blocks';
+						import {
+							InnerBlocks,
+						} from '@wordpress/block-editor';
 
-	const SIDESTREET_PROPERTY_TEMPLATE = [
-		[ 'core/heading', { placeholder: 'Listing Price'} ],
-		[ 'core/paragraph', { placeholder: 'Listing Description' } ],
-		[ 'core/image', {} ],
-		[ 'core/list', { placeholder: 'Property Features' } ],
-		[ 'core/gallery', {} ],
-	];
+						const SIDESTREET_PROPERTY_TEMPLATE = [
+							[ 'core/heading', { placeholder: 'Listing Price'} ],
+							[ 'core/paragraph', { placeholder: 'Listing Description' } ],
+							[ 'core/image', {} ],
+							[ 'core/list', { placeholder: 'Property Features' } ],
+							[ 'core/gallery', {} ],
+						];
 
-	registerBlockType( 'sidetrack/property-template', {
-		title: __( 'Sidetreet Property Template', 'sidetrack' ),
-		icon: {
-			foreground: '#fff',
-			background: '#773B7A',
-			src: 'multisite',
-		},
-		category: 'sidetrack',
-		attributes: {
-			content: {
-				type: 'string',
-			},
-		},
+						registerBlockType( 'sidetrack/property-template', {
+							title: __( 'Sidetreet Property Template', 'sidetrack' ),
+							icon: {
+								foreground: '#fff',
+								background: '#773B7A',
+								src: 'multisite',
+							},
+							category: 'sidetrack',
+							attributes: {
+								content: {
+									type: 'string',
+								},
+							},
 
-		edit: ( props ) => {
-			const { className } = props;
-			return (
-				<div className={ className }>
-					<InnerBlocks
-						template={SIDESTREET_PROPERTY_TEMPLATE}
-						templateLock={true}
-						renderAppender={(
-							() => <InnerBlocks.ButtonBlockAppender/>
-						)}
-					/>
-				</div>
-			);
-		},
+							edit: ( props ) => {
+								const { className } = props;
+								return (
+									<div className={ className }>
+										<InnerBlocks
+											template={SIDESTREET_PROPERTY_TEMPLATE}
+											templateLock={true}
+											renderAppender={(
+												() => <InnerBlocks.ButtonBlockAppender/>
+											)}
+										/>
+									</div>
+								);
+							},
 
-		save: ( props ) => {
-			const { className } = props;
-			return (
-				<div className={ className }>
-					<InnerBlocks.Content />
-				</div>
-			);
-		},
-	});
-</code>
-			</pre>
+							save: ( props ) => {
+								const { className } = props;
+								return (
+									<div className={ className }>
+										<InnerBlocks.Content />
+									</div>
+								);
+							},
+						});
+					</code>
+				</pre>
 			<aside class="notes">
 				Example code from the Developer handbook, which is slightly outdated. You might prefer to try our method we use in our studio.
 
@@ -616,11 +616,100 @@
 		<section>
 			<small>Block Template Benefits</small>
 			<h2>Better User Experience</h2>
-			<p>By eliminating the options, the admin user can quickly get this listing onto the site.
-			</p>
+			<p>By eliminating the options, the admin user can quickly get this listing onto the site.</p>
 			<aside class="notes">
 				Hick's Law in action. By eliminating the options, we make it easier for the admin user to post this real estate listing onto their site.
 			</aside>
+		</section>
+
+		<section>
+			<small>Block Meta</small>
+			<h2>So Meta</h2>
+			<p>The rise of the meta box came about from the limitation of structuring content in the Classic WordPress editor.</p>
+			<aside class="notes">
+				This was a powerful tool allowing theme creators to customize how admin users added content to their site that could be both stored for use in other places as well as displayed on the front end. Using tools like ACF, theme authors could make it easier to put together the Real Estate Lising.
+			</aside>
+		</section>
+
+		<section>
+			<small>Block Meta</small>
+			<h2>So Meta</h2>
+			<p>Using meta boxes to create page layouts has direct ramifcations on your database.</p>
+				<p class="fragment fade-in-then-semi-out">It moves what should be post_content into meta.</p>
+				<p class="fragment fade-in-then-semi-out">item one</p>
+				<p class="fragment fade-in-then-semi-out">item two</p>
+				<p class="fragment fade-in-then-semi-out">item three</p>
+			<aside class="notes">
+				While layout patterns like Team Bios and Events make sense as meta data, in some cases, I've seen theme authors using meta boxes to define page layout. While useful at the time, it block theme development we are now able to keep post_content where it belongs.
+			</aside>
+		</section>
+
+		<section>
+			<small>Block Meta</small>
+			<h2>Creating Content for Meta</h2>
+			<p>Content created as meta no longer needs to be, it can be added directly to the page with blocks.</p>
+		</section>
+
+		<section>
+			<small>Block Meta</small>
+			<h2>Meta as a Block</h2>
+			<p>Now when you need to add content to be stored as meta, build your block with <a href="https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/#meta">block attributes</a></p>
+		</section>
+
+		<section>
+			<small>Block Meta</small>
+			<h2>Meta as a Block</h2>
+			<pre><code class="hljs" data-trim data-line-numbers="">
+				attributes: {
+					image: {
+						type: 'object',
+						source: 'meta',
+						meta: 'propertyimg'
+					},
+					price: {
+						type: 'string',
+						source: 'meta',
+						meta: 'price'
+					},
+				},				
+			</code></pre>
+			<aside class="notes">
+				
+			</aside>
+		</section>
+
+		<section>
+			<small>Block Meta</small>
+			<h2>Meta as a Block</h2>
+			<pre><code class="hljs" data-trim data-line-numbers="">
+				function sidetrack_property_meta() {
+					register_post_meta(
+						'post',
+						'image',
+						array(
+							'type'          => 'string',
+							'single'        => true,
+							'show_in_rest'  => true,
+							'auth_callback' => function() {
+								return current_user_can( 'edit_posts' );
+								},
+						)
+					);
+					register_post_meta(
+						'post',
+						'price',
+						array(
+							'type'          => 'string',
+							'single'        => true,
+							'show_in_rest'  => true,
+							'auth_callback' => function() {
+								return current_user_can( 'edit_posts' );
+								},
+						)
+					);
+				}
+				add_action( 'init', 'sidetrack_property_meta' );
+			</code></pre>
 		</section>
 	</section>
 
